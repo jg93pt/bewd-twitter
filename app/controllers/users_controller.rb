@@ -6,7 +6,6 @@ class UsersController < ApplicationController
         user: {
           username: @user.username,
           email: @user.email,
-          password: @user.password
         }
       }
     else
