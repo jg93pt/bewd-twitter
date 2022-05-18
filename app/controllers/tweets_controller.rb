@@ -1,4 +1,10 @@
 class TweetsController < ApplicationController
+  def index
+    @tweets = Tweet.all
+    render 'tweets/index' # can be omitted
+  end
+
+
   def create
     token = cookies.signed[:twitter_session_token]
     session = Session.find_by(token: token)
@@ -16,6 +22,24 @@ class TweetsController < ApplicationController
       render json: { success: false }
     end
   end
+
+  def destroy
+    token = cookies.signed[:twitter_session_token]
+    session = Session.find_by(token: token)
+
+    if session
+      user = session.user
+    @tweet = user.tweets.find_by(id: params[:id])
+
+    if @tweet and @tweet.destroy
+      render json: { success: true }
+    else
+      render json: { success: false }
+    end
+  else
+    render json: { success: false }
+  end
+ end
 
   private
 
