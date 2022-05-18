@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   get '/feeds'                    => 'feeds#index'
 
   # USERS
-
   post '/users'                   => 'users#create'
-  # SESSIONS
 
+  # SESSIONS
+  get '/authenticated'            => 'sessions#authenticated'
   post '/sessions'                => 'sessions#create'
+  delete '/sessions'              => 'sessions#destroy'
+
   # TWEETS
 
 
