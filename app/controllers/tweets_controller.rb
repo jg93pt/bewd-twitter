@@ -4,6 +4,15 @@ class TweetsController < ApplicationController
     render 'tweets/index' # can be omitted
   end
 
+  def index_by_user
+    user = User.find_by(username: params[:username])
+    @tweets = Tweet.where(user_id: user.id)
+    if @tweets
+      render 'tweets/index' # can be omitted
+    else
+      render json: { tweets: [] }
+    end
+  end
 
   def create
     token = cookies.signed[:twitter_session_token]
